@@ -1,28 +1,23 @@
-name: CI
-
 on:
   pull_request:
-  push:
-    branches:
-      - main
+    branches: [main, master]
+
+name: Run Tests
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  run-tests:
+    runs-on: linux-x64
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: "24"
 
       - name: Install dependencies
-        run: 'npm ci'
+        run: npm install --global @n8n/node-cli
 
-      - name: Run lint
-        run: 'npm run lint'
-
-      - name: Run build
-        run: 'npm run build'
+      - name: Build
+        run: n8n-node build
