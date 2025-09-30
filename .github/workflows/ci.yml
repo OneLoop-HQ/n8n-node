@@ -17,6 +17,9 @@ jobs:
           node-version: "24"
 
       - name: Install dependencies
+        run: npm install
+
+      - name: Install n8n-cli
         run: npm install --global @n8n/node-cli
 
       - name: Build
