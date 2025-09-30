@@ -18,6 +18,30 @@ _App/service name_ is _one or two sentences describing the service this node int
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
+1. Install n8n-node globally
+
+```sh
+npm install --global @n8n/node-cli
+```
+
+2. Build
+
+```sh
+n8n-node build
+```
+
+3. Start n8n dev server
+
+```sh
+n8n-node dev
+```
+
+3. Run Linter
+
+```sh
+n8n-node lint
+```
+
 ## Operations
 
 _List the operations supported by your node._
@@ -38,8 +62,8 @@ _By the time users are looking for community nodes, they probably already know n
 
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* _Link to app/service documentation._
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+- _Link to app/service documentation._
 
 ## Version history
 
