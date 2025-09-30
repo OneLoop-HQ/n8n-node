@@ -9,7 +9,7 @@ type WorkflowStep = {
 	finishOn: string[];
 	agentId: string;
 	leaveVoicemail: boolean;
-	conditions: any[];
+	conditions: unknown[];
 };
 
 type WorkflowDefinition = {
@@ -38,7 +38,17 @@ type Schedule = {
 	sunday: DaySchedule;
 };
 
-function buildWorkflowDefinition(agentId: string, stepConfig: any): WorkflowDefinition {
+type StepConfig = {
+	stepType?: string;
+	order?: number;
+	delayInSecs?: number;
+	needsTCPACompliance?: boolean;
+	finishOn?: string[];
+	leaveVoicemail?: boolean;
+	conditions?: unknown[];
+};
+
+function buildWorkflowDefinition(agentId: string, stepConfig: StepConfig = {}): WorkflowDefinition {
 	return {
 		steps: [
 			{
@@ -60,7 +70,6 @@ export async function executeCreateAgentWorkflow(
 	this: IExecuteFunctions,
 	i: number,
 	baseURL: string,
-	credentials: any,
 ): Promise<INodeExecutionData> {
 	try {
 		console.log('Starting workflow creation...');
@@ -75,12 +84,15 @@ export async function executeCreateAgentWorkflow(
 		console.log('Basic parameters:', { name, description, active, timezone, agentId });
 
 		// Get step configuration
-		const stepConfig = this.getNodeParameter('stepConfiguration', i) as any;
+		const stepConfig = this.getNodeParameter('stepConfiguration', i) as Record<string, unknown>;
 		console.log('Step configuration:', stepConfig);
 
 		// Get schedule configurations
-		const workflowScheduleUi = this.getNodeParameter('workflowScheduleUi', i) as any;
-		const tcpaScheduleUi = this.getNodeParameter('tcpaScheduleUi', i) as any;
+		const workflowScheduleUi = this.getNodeParameter('workflowScheduleUi', i) as Record<
+			string,
+			unknown
+		>;
+		const tcpaScheduleUi = this.getNodeParameter('tcpaScheduleUi', i) as Record<string, unknown>;
 
 		const workflowScheduleData = workflowScheduleUi?.scheduleConfiguration || {};
 		const tcpaScheduleData = tcpaScheduleUi?.tcpaConfiguration || {};
@@ -112,13 +124,14 @@ export async function executeCreateAgentWorkflow(
 		// Configure workflow schedule
 		if (workflowScheduleData) {
 			console.log('Configuring workflow schedule...');
+			const scheduleData = workflowScheduleData as Record<string, unknown>;
 			const {
 				workingDays = [],
 				workingHoursStart = 9,
 				workingHoursEnd = 17,
 				workingMinutesStart = 0,
 				workingMinutesEnd = 0,
-			} = workflowScheduleData;
+			} = scheduleData;
 
 			console.log('Working days configuration:', { workingDays });
 
@@ -128,10 +141,10 @@ export async function executeCreateAgentWorkflow(
 						enabled: true,
 						timeRanges: [
 							{
-								startHour: workingHoursStart,
-								startMinute: workingMinutesStart,
-								endHour: workingHoursEnd,
-								endMinute: workingMinutesEnd,
+								startHour: Number(workingHoursStart),
+								startMinute: Number(workingMinutesStart),
+								endHour: Number(workingHoursEnd),
+								endMinute: Number(workingMinutesEnd),
 							},
 						],
 					};
@@ -145,13 +158,14 @@ export async function executeCreateAgentWorkflow(
 		// Configure TCPA schedule
 		if (tcpaScheduleData) {
 			console.log('Configuring TCPA schedule...');
+			const tcpaData = tcpaScheduleData as Record<string, unknown>;
 			const {
 				tcpaDays = [],
 				tcpaHoursStart = 8,
 				tcpaHoursEnd = 21,
 				tcpaMinutesStart = 0,
 				tcpaMinutesEnd = 0,
-			} = tcpaScheduleData;
+			} = tcpaData;
 
 			console.log('TCPA days configuration:', { tcpaDays });
 
@@ -161,10 +175,10 @@ export async function executeCreateAgentWorkflow(
 						enabled: true,
 						timeRanges: [
 							{
-								startHour: tcpaHoursStart,
-								startMinute: tcpaMinutesStart,
-								endHour: tcpaHoursEnd,
-								endMinute: tcpaMinutesEnd,
+								startHour: Number(tcpaHoursStart),
+								startMinute: Number(tcpaMinutesStart),
+								endHour: Number(tcpaHoursEnd),
+								endMinute: Number(tcpaMinutesEnd),
 							},
 						],
 					};

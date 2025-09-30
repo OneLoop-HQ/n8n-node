@@ -95,9 +95,9 @@ export class Feather implements INodeType {
 				} else if (operation === 'dispatchPhoneCall') {
 					returnData.push(await executeDispatchPhoneCall.call(this, i, baseURL, credentials));
 				} else if (operation === 'createAgentWorkflow') {
-					returnData.push(await executeCreateAgentWorkflow.call(this, i, baseURL, credentials));
+					returnData.push(await executeCreateAgentWorkflow.call(this, i, baseURL));
 				} else if (operation === 'cancelWorkflowExecution') {
-					returnData.push(await executeCancelWorkflowExecution.call(this, i, baseURL, credentials));
+					returnData.push(await executeCancelWorkflowExecution.call(this, i, baseURL));
 				}
 			} catch (error) {
 				if (this.continueOnFail()) {

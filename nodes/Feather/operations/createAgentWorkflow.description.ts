@@ -117,24 +117,12 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 						type: 'multiOptions',
 						options: [
 							{
-								name: 'Monday',
-								value: 'monday',
-							},
-							{
-								name: 'Tuesday',
-								value: 'tuesday',
-							},
-							{
-								name: 'Wednesday',
-								value: 'wednesday',
-							},
-							{
-								name: 'Thursday',
-								value: 'thursday',
-							},
-							{
 								name: 'Friday',
 								value: 'friday',
+							},
+							{
+								name: 'Monday',
+								value: 'monday',
 							},
 							{
 								name: 'Saturday',
@@ -143,6 +131,18 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 							{
 								name: 'Sunday',
 								value: 'sunday',
+							},
+							{
+								name: 'Thursday',
+								value: 'thursday',
+							},
+							{
+								name: 'Tuesday',
+								value: 'tuesday',
+							},
+							{
+								name: 'Wednesday',
+								value: 'wednesday',
 							},
 						],
 						default: [],
@@ -176,7 +176,7 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 						default: 0,
 						description: 'Start minutes of working hours',
 					},
-			],
+				],
 			},
 		],
 	},
@@ -202,24 +202,12 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 						type: 'multiOptions',
 						options: [
 							{
-								name: 'Monday',
-								value: 'monday',
-							},
-							{
-								name: 'Tuesday',
-								value: 'tuesday',
-							},
-							{
-								name: 'Wednesday',
-								value: 'wednesday',
-							},
-							{
-								name: 'Thursday',
-								value: 'thursday',
-							},
-							{
 								name: 'Friday',
 								value: 'friday',
+							},
+							{
+								name: 'Monday',
+								value: 'monday',
 							},
 							{
 								name: 'Saturday',
@@ -228,6 +216,18 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 							{
 								name: 'Sunday',
 								value: 'sunday',
+							},
+							{
+								name: 'Thursday',
+								value: 'thursday',
+							},
+							{
+								name: 'Tuesday',
+								value: 'tuesday',
+							},
+							{
+								name: 'Wednesday',
+								value: 'wednesday',
 							},
 						],
 						default: [],
@@ -261,7 +261,7 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 						default: 0,
 						description: 'Start minutes of TCPA hours',
 					},
-			],
+				],
 			},
 		],
 	},
@@ -351,11 +351,11 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 								name: 'Email',
 								value: 'EMAIL',
 							},
-					],
+						],
 						default: 'CALL',
 						description: 'Type of step',
 					},
-			],
+				],
 			},
 		],
 	},

@@ -4,10 +4,13 @@ export async function executeGetWorkflows(
 	this: IExecuteFunctions,
 	i: number,
 	baseURL: string,
-	credentials: any,
+	credentials: Record<string, unknown>,
 ): Promise<INodeExecutionData> {
 	const limit = this.getNodeParameter('limit', i) as number;
-	const additionalParameters = this.getNodeParameter('additionalParameters', i) as any;
+	const additionalParameters = this.getNodeParameter('additionalParameters', i) as Record<
+		string,
+		unknown
+	>;
 
 	const queryParams: string[] = [`limit=${limit}`];
 

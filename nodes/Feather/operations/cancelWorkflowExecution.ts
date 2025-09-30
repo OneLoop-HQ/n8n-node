@@ -4,7 +4,6 @@ export async function executeCancelWorkflowExecution(
 	this: IExecuteFunctions,
 	i: number,
 	baseURL: string,
-	credentials: any,
 ): Promise<INodeExecutionData> {
 	try {
 		console.log('Starting workflow execution cancellation...');

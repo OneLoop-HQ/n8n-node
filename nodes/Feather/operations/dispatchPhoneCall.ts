@@ -4,15 +4,18 @@ export async function executeDispatchPhoneCall(
 	this: IExecuteFunctions,
 	i: number,
 	baseURL: string,
-	credentials: any,
+	credentials: Record<string, unknown>,
 ): Promise<INodeExecutionData> {
 	const agentId = this.getNodeParameter('agentId', i) as string;
 	const leadId = this.getNodeParameter('leadId', i) as string;
 	const firstName = this.getNodeParameter('firstName', i) as string;
-	const additionalFields = this.getNodeParameter('additionalFields', i, {}) as any;
+	const additionalFields = this.getNodeParameter('additionalFields', i, {}) as Record<
+		string,
+		unknown
+	>;
 
 	// Build request body
-	const body: any = {
+	const body: Record<string, unknown> = {
 		leadId,
 		firstName,
 	};
@@ -47,9 +50,9 @@ export async function executeDispatchPhoneCall(
 		try {
 			body.variables =
 				typeof additionalFields.variables === 'string'
-					? JSON.parse(additionalFields.variables)
+					? JSON.parse(additionalFields.variables as string)
 					: additionalFields.variables;
-		} catch (e) {
+		} catch {
 			throw new NodeOperationError(this.getNode(), 'Invalid JSON in Variables field', {
 				itemIndex: i,
 			});
