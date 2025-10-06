@@ -10,6 +10,8 @@ import { executeCancelWorkflowExecution } from './operations/cancelWorkflowExecu
 import { cancelWorkflowExecutionDescription } from './operations/cancelWorkflowExecution.description';
 import { executeCreateAgentWorkflow } from './operations/createAgentWorkflow';
 import { createAgentWorkflowDescription } from './operations/createAgentWorkflow.description';
+import { executeCreateWorkflowExecution } from './operations/createWorkflowExecution';
+import { createWorkflowExecutionDescription } from './operations/createWorkflowExecution.description';
 import { executeDispatchPhoneCall } from './operations/dispatchPhoneCall';
 import { dispatchPhoneCallDescription } from './operations/dispatchPhoneCall.description';
 import { executeGetWorkflows } from './operations/getWorkflows';
@@ -61,6 +63,12 @@ export class Feather implements INodeType {
 						action: 'Create an agent workflow',
 					},
 					{
+						name: 'Create Workflow Execution',
+						value: 'createWorkflowExecution',
+						description: 'Create a new workflow execution',
+						action: 'Create a workflow execution',
+					},
+					{
 						name: 'Cancel Workflow Execution',
 						value: 'cancelWorkflowExecution',
 						description: 'Cancel a workflow execution',
@@ -72,6 +80,7 @@ export class Feather implements INodeType {
 			...getWorkflowsDescription,
 			...dispatchPhoneCallDescription,
 			...createAgentWorkflowDescription,
+			...createWorkflowExecutionDescription,
 			...cancelWorkflowExecutionDescription,
 		],
 	};
@@ -96,6 +105,8 @@ export class Feather implements INodeType {
 					returnData.push(await executeDispatchPhoneCall.call(this, i, baseURL, credentials));
 				} else if (operation === 'createAgentWorkflow') {
 					returnData.push(await executeCreateAgentWorkflow.call(this, i, baseURL));
+				} else if (operation === 'createWorkflowExecution') {
+					returnData.push(await executeCreateWorkflowExecution.call(this, i, baseURL));
 				} else if (operation === 'cancelWorkflowExecution') {
 					returnData.push(await executeCancelWorkflowExecution.call(this, i, baseURL));
 				}
