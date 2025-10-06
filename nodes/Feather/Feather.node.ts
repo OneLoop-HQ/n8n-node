@@ -45,16 +45,10 @@ export class Feather implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Get Workflows',
-						value: 'getWorkflows',
-						description: 'Get a list of workflows',
-						action: 'Get workflows',
-					},
-					{
-						name: 'Dispatch Phone Call',
-						value: 'dispatchPhoneCall',
-						description: 'Dispatch a phone call with custom parameters',
-						action: 'Dispatch a phone call',
+						name: 'Cancel Workflow Execution',
+						value: 'cancelWorkflowExecution',
+						description: 'Cancel a workflow execution',
+						action: 'Cancel a workflow execution',
 					},
 					{
 						name: 'Create Agent Workflow',
@@ -69,10 +63,16 @@ export class Feather implements INodeType {
 						action: 'Create a workflow execution',
 					},
 					{
-						name: 'Cancel Workflow Execution',
-						value: 'cancelWorkflowExecution',
-						description: 'Cancel a workflow execution',
-						action: 'Cancel a workflow execution',
+						name: 'Dispatch Phone Call',
+						value: 'dispatchPhoneCall',
+						description: 'Dispatch a phone call with custom parameters',
+						action: 'Dispatch a phone call',
+					},
+					{
+						name: 'Get Workflows',
+						value: 'getWorkflows',
+						description: 'Get a list of workflows',
+						action: 'Get workflows',
 					},
 				],
 				default: 'getWorkflows',

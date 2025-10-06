@@ -32,8 +32,12 @@ export async function executeCreateWorkflowExecution(
 			primaryPhone,
 			zipcode,
 			state,
-			forwardingPhoneNumber,
 		};
+
+		// Only include forwardingPhoneNumber if it's provided
+		if (forwardingPhoneNumber) {
+			body.forwardingPhoneNumber = forwardingPhoneNumber;
+		}
 
 		// Handle variables (JSON)
 		if (additionalFields.variables) {
