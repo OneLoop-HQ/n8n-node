@@ -16,7 +16,9 @@ export async function executeCreateWorkflowExecution(
 		// Get optional parameters
 		const zipcode = this.getNodeParameter('zipcode', i, null) as string | null;
 		const state = this.getNodeParameter('state', i, null) as string | null;
-		const forwardingPhoneNumber = this.getNodeParameter('forwardingPhoneNumber', i, '') as string;
+		const forwardingPhoneNumber = this.getNodeParameter('forwardingPhoneNumber', i, null) as
+			| string
+			| null;
 
 		// Get additional fields
 		const additionalFields = this.getNodeParameter('additionalFields', i, {}) as Record<
