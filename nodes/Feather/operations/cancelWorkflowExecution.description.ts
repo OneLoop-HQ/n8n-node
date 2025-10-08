@@ -7,6 +7,7 @@ export const cancelWorkflowExecutionDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
+		placeholder: 'e.g. workflow-123',
 		displayOptions: {
 			show: {
 				operation: ['cancelWorkflowExecution'],
@@ -20,6 +21,7 @@ export const cancelWorkflowExecutionDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
+		placeholder: 'e.g. execution-456',
 		displayOptions: {
 			show: {
 				operation: ['cancelWorkflowExecution'],
