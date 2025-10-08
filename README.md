@@ -1,8 +1,8 @@
 # n8n-nodes-feather
 
-This is an n8n community node. It lets you use _app/service name_ in your n8n workflows.
+This is an n8n community node. It lets you use Feather AI in your n8n workflows.
 
-_App/service name_ is _one or two sentences describing the service this node integrates with_.
+Feather AI is a conversational AI platform for building voice and text agents.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -44,27 +44,26 @@ n8n-node lint
 
 ## Operations
 
-_List the operations supported by your node._
+* Get Workflows
+* Dispatch single phone call
+* Create Workflow Execution
+* Cancel Workflow Execution
 
 ## Credentials
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
-
-## Compatibility
-
-_State the minimum n8n version, as well as which versions you test against. You can also include any known version incompatibility issues._
+API Key can be issued using the dashboard.
 
 ## Usage
 
-_This is an optional section. Use it to help users with any difficult or confusing aspects of the node._
-
-_By the time users are looking for community nodes, they probably already know n8n basics. But if you expect new users, you can link to the [Try it out](https://docs.n8n.io/try-it-out/) documentation to help them get started._
+* Workflows are time and condition bound cadences of multiple calls that operate on a schedule. You must create one on the dashboard
+* Each lead becomes an instance of a single workflow execution
+* In order to dispatch single phone calls or workflow execution, please attach a phone number in the 'Telephony' tab in the dashboard to the agent. This agent can then be attached to the workflow.
 
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-- _Link to app/service documentation._
+- [Feather Docs](https://docs.featherhq.com)
 
 ## Version history
 
-_This is another optional section. If your node has multiple versions, include a short description of available versions and what changed, as well as any compatibility impact._
+* Version 1.0.0
