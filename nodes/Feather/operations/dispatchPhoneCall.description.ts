@@ -6,6 +6,7 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 		name: 'agentId',
 		type: 'string',
 		required: true,
+		placeholder: 'e.g. agent-id-123',
 		default: '',
 		displayOptions: {
 			show: {
@@ -18,6 +19,7 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 		name: 'leadId',
 		type: 'string',
 		required: true,
+		placeholder: 'e.g. lead-id-123',
 		default: '',
 		displayOptions: {
 			show: {
@@ -30,6 +32,7 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 		name: 'firstName',
 		type: 'string',
 		required: true,
+		placeholder: 'e.g. John',
 		default: '',
 		displayOptions: {
 			show: {
@@ -37,6 +40,20 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 			},
 		},
 		description: 'First name of the lead',
+	},
+	{
+		displayName: 'To Phone Number',
+		name: 'toPhoneNumber',
+		type: 'string',
+		placeholder: 'e.g. +12025551234',
+		required: true,
+		default: '',
+		displayOptions: {
+			show: {
+				operation: ['dispatchPhoneCall'],
+			},
+		},
+		description: 'Phone number in format +1XXXXXXXXXX (e.g., +12025551234)',
 	},
 	{
 		displayName: 'Additional Fields',
@@ -80,25 +97,12 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 				type: 'options',
 				options: [
 					{ name: 'Audio', value: 'audio' },
-					{ name: 'Video', value: 'video' },
 				],
 				default: 'audio',
 			},
 			{
 				displayName: 'Outbound Phone Number ID',
 				name: 'outboundPhoneNumberId',
-				type: 'string',
-				default: '',
-			},
-			{
-				displayName: 'Room Name',
-				name: 'roomName',
-				type: 'string',
-				default: '',
-			},
-			{
-				displayName: 'To Phone Number',
-				name: 'toPhoneNumber',
 				type: 'string',
 				default: '',
 			},

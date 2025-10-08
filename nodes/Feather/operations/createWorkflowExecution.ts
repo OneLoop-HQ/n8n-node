@@ -14,17 +14,66 @@ export async function executeCreateWorkflowExecution(
 		const primaryPhone = this.getNodeParameter('primaryPhone', i) as string;
 
 		// Get optional parameters
-		const zipcode = this.getNodeParameter('zipcode', i, null) as string | null;
-		const state = this.getNodeParameter('state', i, null) as string | null;
+		let zipcode = this.getNodeParameter('zipcode', i, null) as string | null | undefined;
+		let state = this.getNodeParameter('state', i, null) as string | null | undefined;
 		const forwardingPhoneNumber = this.getNodeParameter('forwardingPhoneNumber', i, null) as
 			| string
 			| null;
+
+
+		// Do not pass in request body if zipcode is null
+		if (zipcode === null) {
+			zipcode = undefined;
+		}
+
+		if (zipcode !== undefined && zipcode.length === 0) {
+			zipcode = undefined;
+		}
+
+		if (state === null) {
+			state = undefined;
+		}
+
+		if (state !== undefined && state.length === 0) {
+			state = undefined;
+		}
 
 		// Get additional fields
 		const additionalFields = this.getNodeParameter('additionalFields', i, {}) as Record<
 			string,
 			unknown
 		>;
+
+		// Validate that at least one of zipcode or state is provided
+		if (!zipcode && !state) {
+			throw new NodeOperationError(
+				this.getNode(),
+				'At least one of Zipcode or State must be provided',
+				{ itemIndex: i },
+			);
+		}
+
+		// For state validate that it is 2 characters
+		if (state) {
+			if (state.length !== 2) {
+				throw new NodeOperationError(
+					this.getNode(),
+					'State must be 2 characters',
+					{ itemIndex: i },
+				);
+			}
+		}
+
+		// For zipcode validate regex ^[0-9]{5}$
+		if (zipcode) {
+			if (!/^[0-9]{5}$/.test(zipcode)) {
+				throw new NodeOperationError(
+					this.getNode(),
+					'Zipcode must be 5 digits',
+					{ itemIndex: i },
+				);
+			}
+		}
 
 		console.log('Basic parameters:', { workflowId, customerLeadId, primaryPhone, zipcode, state });
 
