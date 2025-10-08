@@ -10,6 +10,8 @@ import { executeCancelWorkflowExecution } from './operations/cancelWorkflowExecu
 import { cancelWorkflowExecutionDescription } from './operations/cancelWorkflowExecution.description';
 import { executeCreateAgentWorkflow } from './operations/createAgentWorkflow';
 import { createAgentWorkflowDescription } from './operations/createAgentWorkflow.description';
+import { executeCreateWorkflowExecution } from './operations/createWorkflowExecution';
+import { createWorkflowExecutionDescription } from './operations/createWorkflowExecution.description';
 import { executeDispatchPhoneCall } from './operations/dispatchPhoneCall';
 import { dispatchPhoneCallDescription } from './operations/dispatchPhoneCall.description';
 import { executeGetWorkflows } from './operations/getWorkflows';
@@ -43,16 +45,10 @@ export class Feather implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Get Workflows',
-						value: 'getWorkflows',
-						description: 'Get a list of workflows',
-						action: 'Get workflows',
-					},
-					{
-						name: 'Dispatch Phone Call',
-						value: 'dispatchPhoneCall',
-						description: 'Dispatch a phone call with custom parameters',
-						action: 'Dispatch a phone call',
+						name: 'Cancel Workflow Execution',
+						value: 'cancelWorkflowExecution',
+						description: 'Cancel a workflow execution',
+						action: 'Cancel a workflow execution',
 					},
 					{
 						name: 'Create Agent Workflow',
@@ -61,10 +57,22 @@ export class Feather implements INodeType {
 						action: 'Create an agent workflow',
 					},
 					{
-						name: 'Cancel Workflow Execution',
-						value: 'cancelWorkflowExecution',
-						description: 'Cancel a workflow execution',
-						action: 'Cancel a workflow execution',
+						name: 'Create Workflow Execution',
+						value: 'createWorkflowExecution',
+						description: 'Create a new workflow execution',
+						action: 'Create a workflow execution',
+					},
+					{
+						name: 'Dispatch Phone Call',
+						value: 'dispatchPhoneCall',
+						description: 'Dispatch a phone call with custom parameters',
+						action: 'Dispatch a phone call',
+					},
+					{
+						name: 'Get Workflows',
+						value: 'getWorkflows',
+						description: 'Get a list of workflows',
+						action: 'Get workflows',
 					},
 				],
 				default: 'getWorkflows',
@@ -72,6 +80,7 @@ export class Feather implements INodeType {
 			...getWorkflowsDescription,
 			...dispatchPhoneCallDescription,
 			...createAgentWorkflowDescription,
+			...createWorkflowExecutionDescription,
 			...cancelWorkflowExecutionDescription,
 		],
 	};
@@ -96,6 +105,8 @@ export class Feather implements INodeType {
 					returnData.push(await executeDispatchPhoneCall.call(this, i, baseURL, credentials));
 				} else if (operation === 'createAgentWorkflow') {
 					returnData.push(await executeCreateAgentWorkflow.call(this, i, baseURL));
+				} else if (operation === 'createWorkflowExecution') {
+					returnData.push(await executeCreateWorkflowExecution.call(this, i, baseURL));
 				} else if (operation === 'cancelWorkflowExecution') {
 					returnData.push(await executeCancelWorkflowExecution.call(this, i, baseURL));
 				}

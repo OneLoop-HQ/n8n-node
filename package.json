@@ -4,9 +4,17 @@
   "description": "n8n community node to work with the Example API",
   "license": "MIT",
   "homepage": "https://example.com",
-  "keywords": ["n8n-community-node-package"],
-  "author": { "name": "radioactive11", "email": "roy.arijit@icloud.com" },
-  "repository": { "type": "git", "url": "" },
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "author": {
+    "name": "radioactive11",
+    "email": "roy.arijit@icloud.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "scripts": {
     "build": "n8n-node build",
     "build:watch": "tsc --watch",
@@ -16,18 +24,26 @@
     "release": "n8n-node release",
     "prepublishOnly": "n8n-node prerelease"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": ["dist/credentials/FeatherApi.credentials.js"],
-    "nodes": ["dist/nodes/Feather/Feather.node.js"]
+    "credentials": [
+      "dist/credentials/FeatherApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Feather/Feather.node.js"
+    ]
   },
   "devDependencies": {
     "@n8n/node-cli": "0.11.0",
     "eslint": "9.32.0",
     "prettier": "3.6.2",
     "release-it": "^19.0.4",
-    "typescript": "5.9.2"
+    "typescript": "^5.9.2"
   },
-  "peerDependencies": { "n8n-workflow": "*" }
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
 }
