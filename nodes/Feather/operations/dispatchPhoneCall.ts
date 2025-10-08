@@ -13,19 +13,29 @@ export async function executeDispatchPhoneCall(
 		string,
 		unknown
 	>;
+	const toPhoneNumber = this.getNodeParameter('toPhoneNumber', i) as string;
+
+	// Validate phone number format
+	const phoneRegex = /^\+1\d{10}$/;
+	if (!phoneRegex.test(toPhoneNumber)) {
+		throw new NodeOperationError(
+			this.getNode(),
+			'Phone number must be in format +1XXXXXXXXXX (e.g., +12025551234)',
+			{ itemIndex: i },
+		);
+	}
 
 	// Build request body
 	const body: Record<string, unknown> = {
 		leadId,
 		firstName,
+		toPhoneNumber,
 	};
 
 	// Add optional fields if provided
 	const optionalFields = [
 		'versionId',
 		'outboundPhoneNumberId',
-		'toPhoneNumber',
-		'roomName',
 		'metadata',
 		'mode',
 		'zipcode',

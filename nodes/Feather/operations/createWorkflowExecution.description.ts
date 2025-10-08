@@ -7,6 +7,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
+		placeholder: 'e.g. workflow-id-123',
 		displayOptions: {
 			show: {
 				operation: ['createWorkflowExecution'],
@@ -19,6 +20,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		name: 'customerLeadId',
 		type: 'string',
 		required: true,
+		placeholder: 'e.g. lead-id-123',
 		default: '',
 		displayOptions: {
 			show: {
@@ -32,6 +34,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		name: 'primaryPhone',
 		type: 'string',
 		required: true,
+		placeholder: 'e.g. +12025551234',
 		default: '',
 		displayOptions: {
 			show: {
@@ -44,37 +47,27 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		displayName: 'Zipcode',
 		name: 'zipcode',
 		type: 'string',
-		default: '',
+		default: null,
+		placeholder: 'e.g. 90210',
 		displayOptions: {
 			show: {
 				operation: ['createWorkflowExecution'],
 			},
 		},
-		description: 'Zipcode for the execution',
+		description: 'Zipcode for the execution in format 90210',
 	},
 	{
 		displayName: 'State',
 		name: 'state',
 		type: 'string',
-		default: '',
+		default: null,
+		placeholder: 'e.g. CA',
 		displayOptions: {
 			show: {
 				operation: ['createWorkflowExecution'],
 			},
 		},
-		description: 'State for the execution',
-	},
-	{
-		displayName: 'Forwarding Phone Number',
-		name: 'forwardingPhoneNumber',
-		type: 'string',
-		default: '',
-		displayOptions: {
-			show: {
-				operation: ['createWorkflowExecution'],
-			},
-		},
-		description: 'Phone number to forward calls to',
+		description: 'State for the execution in format CA',
 	},
 	{
 		displayName: 'Additional Fields',
@@ -88,6 +81,13 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 			},
 		},
 		options: [
+			{
+				displayName: 'Forwarding Phone Number',
+				name: 'forwardingPhoneNumber',
+				type: 'string',
+				default: '',
+				description: 'Phone number to forward calls to',
+			},
 			{
 				displayName: 'First Name',
 				name: 'firstName',
