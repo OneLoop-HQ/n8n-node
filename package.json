@@ -1,9 +1,9 @@
 {
   "name": "n8n-nodes-feather",
   "version": "1.0.0",
-  "description": "n8n community node to work with the Example API",
+  "description": "n8n community node to work with the Feather API",
   "license": "MIT",
-  "homepage": "https://example.com",
+  "homepage": "https://featherhq.com",
   "keywords": [
     "n8n-community-node-package"
   ],
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/OneLoop-HQ/n8n-node"
   },
   "scripts": {
     "build": "n8n-node build",
