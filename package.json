@@ -28,7 +28,12 @@
     "lint": "n8n-node lint",
     "lint:fix": "n8n-node lint --fix",
     "release": "n8n-node release",
-    "prepublishOnly": "n8n-node prerelease"
+    "test:patch": "./publish.sh patch",
+    "test:minor": "./publish.sh minor",
+    "test:major": "./publish.sh major",
+    "publish:patch": "./publish.sh patch --publish",
+    "publish:minor": "./publish.sh minor --publish",
+    "publish:major": "./publish.sh major --publish"
   },
   "files": [
     "dist"
