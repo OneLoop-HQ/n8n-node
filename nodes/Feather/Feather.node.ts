@@ -20,7 +20,7 @@ export class Feather implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Feather',
 		name: 'feather',
-		icon: 'file:feather.png',
+		icon: 'file:feather.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',

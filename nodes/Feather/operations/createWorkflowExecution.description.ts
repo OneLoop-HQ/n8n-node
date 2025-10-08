@@ -82,12 +82,12 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Forwarding Phone Number',
-				name: 'forwardingPhoneNumber',
-				type: 'string',
-				default: '',
+				displayName: 'Additional Metadata (JSON)',
+				name: 'additionalMetadata',
+				type: 'json',
+				default: '{}',
 				placeholder: 'e.g. +12025551234',
-				description: 'Phone number to forward calls to',
+				description: 'Additional metadata fields as JSON object',
 			},
 			{
 				displayName: 'First Name',
@@ -96,6 +96,13 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 				default: '',
 				placeholder: 'e.g. Nathan',
 				description: 'First name for metadata',
+			},
+			{
+				displayName: 'Forwarding Phone Number',
+				name: 'forwardingPhoneNumber',
+				type: 'string',
+				default: '',
+				description: 'Phone number to forward calls to',
 			},
 			{
 				displayName: 'Last Name',
@@ -112,14 +119,6 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 				default: '{}',
 				placeholder: 'e.g. {"customerName": "Nathan Smith"}',
 				description: 'Variables for the execution as JSON object',
-			},
-			{
-				displayName: 'Additional Metadata (JSON)',
-				name: 'additionalMetadata',
-				type: 'json',
-				default: '{}',
-				placeholder: 'e.g. {"leadSource": "website"}',
-				description: 'Additional metadata fields as JSON object',
 			},
 		],
 	},

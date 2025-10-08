@@ -1,9 +1,9 @@
 {
   "name": "n8n-nodes-feather",
-  "version": "0.1.0",
-  "description": "n8n community node to work with the Example API",
+  "version": "1.0.0",
+  "description": "n8n community node to work with the Feather API",
   "license": "MIT",
-  "homepage": "https://example.com",
+  "homepage": "https://featherhq.com",
   "keywords": [
     "n8n-community-node-package",
     "feather",
@@ -14,12 +14,12 @@
     "agents-call-center"
   ],
   "author": {
-    "name": "radioactive11",
-    "email": "roy.arijit@icloud.com"
+    "name": "Arijit Roy",
+    "email": "arijit@featherhq.com"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/OneLoop-HQ/n8n-node"
   },
   "scripts": {
     "build": "n8n-node build",
