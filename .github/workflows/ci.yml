@@ -22,5 +22,8 @@ jobs:
       - name: Install n8n-cli
         run: npm install --global @n8n/node-cli
 
+      - name: Lint
+        run: n8n-node lint
+
       - name: Build
         run: n8n-node build

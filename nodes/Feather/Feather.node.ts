@@ -8,7 +8,6 @@ import {
 
 import { executeCancelWorkflowExecution } from './operations/cancelWorkflowExecution';
 import { cancelWorkflowExecutionDescription } from './operations/cancelWorkflowExecution.description';
-import { executeCreateAgentWorkflow } from './operations/createAgentWorkflow';
 import { createAgentWorkflowDescription } from './operations/createAgentWorkflow.description';
 import { executeCreateWorkflowExecution } from './operations/createWorkflowExecution';
 import { createWorkflowExecutionDescription } from './operations/createWorkflowExecution.description';
@@ -49,12 +48,6 @@ export class Feather implements INodeType {
 						value: 'cancelWorkflowExecution',
 						description: 'Cancel a workflow execution',
 						action: 'Cancel a workflow execution',
-					},
-					{
-						name: 'Create Agent Workflow',
-						value: 'createAgentWorkflow',
-						description: 'Create a new workflow with an agent',
-						action: 'Create an agent workflow',
 					},
 					{
 						name: 'Create Workflow Execution',
@@ -103,9 +96,7 @@ export class Feather implements INodeType {
 					returnData.push(await executeGetWorkflows.call(this, i, baseURL, credentials));
 				} else if (operation === 'dispatchPhoneCall') {
 					returnData.push(await executeDispatchPhoneCall.call(this, i, baseURL, credentials));
-				} else if (operation === 'createAgentWorkflow') {
-					returnData.push(await executeCreateAgentWorkflow.call(this, i, baseURL));
-				} else if (operation === 'createWorkflowExecution') {
+				}  else if (operation === 'createWorkflowExecution') {
 					returnData.push(await executeCreateWorkflowExecution.call(this, i, baseURL));
 				} else if (operation === 'cancelWorkflowExecution') {
 					returnData.push(await executeCancelWorkflowExecution.call(this, i, baseURL));

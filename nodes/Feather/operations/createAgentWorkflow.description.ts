@@ -7,6 +7,7 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
+		placeholder: 'e.g. salesOutreach',
 		displayOptions: {
 			show: {
 				operation: ['createAgentWorkflow'],
@@ -19,6 +20,7 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 		name: 'description',
 		type: 'string',
 		default: '',
+		placeholder: 'e.g. Automated sales outreach workflow',
 		displayOptions: {
 			show: {
 				operation: ['createAgentWorkflow'],
@@ -43,6 +45,7 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 		name: 'timezone',
 		type: 'string',
 		default: 'America/Los_Angeles',
+		placeholder: 'e.g. America/New_York',
 		displayOptions: {
 			show: {
 				operation: ['createAgentWorkflow'],
@@ -88,6 +91,7 @@ export const createAgentWorkflowDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
+		placeholder: 'e.g. agent-123',
 		displayOptions: {
 			show: {
 				operation: ['createAgentWorkflow'],
