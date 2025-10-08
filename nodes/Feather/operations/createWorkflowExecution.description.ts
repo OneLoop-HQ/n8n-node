@@ -7,7 +7,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		placeholder: 'e.g. workflow-id-123',
+		placeholder: 'e.g. workflow-ID-123',
 		displayOptions: {
 			show: {
 				operation: ['createWorkflowExecution'],
@@ -20,7 +20,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		name: 'customerLeadId',
 		type: 'string',
 		required: true,
-		placeholder: 'e.g. lead-id-123',
+		placeholder: 'e.g. lead-ID-123',
 		default: '',
 		displayOptions: {
 			show: {
@@ -47,7 +47,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		displayName: 'Zipcode',
 		name: 'zipcode',
 		type: 'string',
-		default: null,
+		default: '',
 		placeholder: 'e.g. 90210',
 		displayOptions: {
 			show: {
@@ -60,7 +60,7 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		displayName: 'State',
 		name: 'state',
 		type: 'string',
-		default: null,
+		default: '',
 		placeholder: 'e.g. CA',
 		displayOptions: {
 			show: {
@@ -82,11 +82,11 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Forwarding Phone Number',
-				name: 'forwardingPhoneNumber',
-				type: 'string',
-				default: '',
-				description: 'Phone number to forward calls to',
+				displayName: 'Additional Metadata (JSON)',
+				name: 'additionalMetadata',
+				type: 'json',
+				default: '{}',
+				description: 'Additional metadata fields as JSON object',
 			},
 			{
 				displayName: 'First Name',
@@ -94,6 +94,13 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'First name for metadata',
+			},
+			{
+				displayName: 'Forwarding Phone Number',
+				name: 'forwardingPhoneNumber',
+				type: 'string',
+				default: '',
+				description: 'Phone number to forward calls to',
 			},
 			{
 				displayName: 'Last Name',
@@ -108,13 +115,6 @@ export const createWorkflowExecutionDescription: INodeProperties[] = [
 				type: 'json',
 				default: '{}',
 				description: 'Variables for the execution as JSON object',
-			},
-			{
-				displayName: 'Additional Metadata (JSON)',
-				name: 'additionalMetadata',
-				type: 'json',
-				default: '{}',
-				description: 'Additional metadata fields as JSON object',
 			},
 		],
 	},

@@ -6,7 +6,7 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 		name: 'agentId',
 		type: 'string',
 		required: true,
-		placeholder: 'e.g. agent-id-123',
+		placeholder: 'e.g. agent-ID-123',
 		default: '',
 		displayOptions: {
 			show: {
@@ -19,7 +19,7 @@ export const dispatchPhoneCallDescription: INodeProperties[] = [
 		name: 'leadId',
 		type: 'string',
 		required: true,
-		placeholder: 'e.g. lead-id-123',
+		placeholder: 'e.g. lead-ID-123',
 		default: '',
 		displayOptions: {
 			show: {
