@@ -1,0 +1,1 @@
+npx @n8n/scan-community-package '@featherhq/n8n-nodes-feather'
