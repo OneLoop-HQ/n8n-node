@@ -51,7 +51,7 @@ export class FeatherApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL:
-				'={{$credentials.environment === "production" ? "https://featherhq.com" : "https://sandbox.featherhq.com"}}',
+				'={{$credentials.environment === "production" ? "https://prod.featherhq.com" : "https://sandbox.featherhq.com"}}',
 			url: '/api/v1/workflow?limit=1',
 			headers: {
 				accept: 'application/json, text/plain, */*',
