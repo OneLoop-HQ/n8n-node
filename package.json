@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-feather",
+  "name": "@featherhq/n8n-nodes-feather",
   "version": "1.0.0",
   "description": "n8n community node to work with the Feather API",
   "license": "MIT",
