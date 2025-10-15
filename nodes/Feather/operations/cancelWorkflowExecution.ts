@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, LoggerProxy as Logger } from 'n8n-workflow';
 
 export async function executeCancelWorkflowExecution(
 	this: IExecuteFunctions,
@@ -6,13 +6,13 @@ export async function executeCancelWorkflowExecution(
 	baseURL: string,
 ): Promise<INodeExecutionData> {
 	try {
-		console.log('Starting workflow execution cancellation...');
+		Logger.info('Starting workflow execution cancellation...');
 
 		// Get the workflow and execution IDs
 		const workflowId = this.getNodeParameter('workflowId', i) as string;
 		const executionId = this.getNodeParameter('executionId', i) as string;
 
-		console.log('Parameters:', { workflowId, executionId });
+		Logger.info('Parameters:', { workflowId, executionId });
 
 		try {
 			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
@@ -25,7 +25,7 @@ export async function executeCancelWorkflowExecution(
 				json: true,
 			});
 
-			console.log('Workflow execution cancelled successfully:', JSON.stringify(response, null, 2));
+			Logger.info('Workflow execution cancelled successfully:', { response });
 
 			return {
 				json: response,
@@ -34,8 +34,8 @@ export async function executeCancelWorkflowExecution(
 				},
 			};
 		} catch (apiError) {
-			console.error('API request failed:', apiError);
-			console.error('Request details:', {
+			Logger.error('API request failed:', { error: apiError });
+			Logger.error('Request details:', {
 				url: `${baseURL}/api/v1/workflow/${workflowId}/executions/${executionId}/cancel`,
 				workflowId,
 				executionId,
@@ -43,7 +43,7 @@ export async function executeCancelWorkflowExecution(
 			throw apiError;
 		}
 	} catch (error) {
-		console.error('Error in workflow execution cancellation:', error);
+		Logger.error('Error in workflow execution cancellation:', { error });
 		throw error;
 	}
 }

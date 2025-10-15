@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, LoggerProxy as Logger, NodeOperationError } from 'n8n-workflow';
 
 export async function executeCreateWorkflowExecution(
 	this: IExecuteFunctions,
@@ -6,7 +6,7 @@ export async function executeCreateWorkflowExecution(
 	baseURL: string,
 ): Promise<INodeExecutionData> {
 	try {
-		console.log('Starting workflow execution creation...');
+		Logger.info('Starting workflow execution creation...');
 
 		// Get required parameters
 		const workflowId = this.getNodeParameter('workflowId', i) as string;
@@ -75,7 +75,7 @@ export async function executeCreateWorkflowExecution(
 			}
 		}
 
-		console.log('Basic parameters:', { workflowId, customerLeadId, primaryPhone, zipcode, state });
+		Logger.info('Basic parameters:', { workflowId, customerLeadId, primaryPhone, zipcode, state });
 
 		// Build request body
 		const body: Record<string, unknown> = {
@@ -132,7 +132,7 @@ export async function executeCreateWorkflowExecution(
 
 		body.metadata = metadata;
 
-		console.log('Preparing API request with execution data:', JSON.stringify(body, null, 2));
+		Logger.info('Preparing API request with execution data:', { body});
 
 		try {
 			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
@@ -146,8 +146,7 @@ export async function executeCreateWorkflowExecution(
 				json: true,
 			});
 
-			console.log('Workflow execution created successfully:', JSON.stringify(response, null, 2));
-
+			Logger.info('Workflow execution created successfully:', { response });
 			return {
 				json: response,
 				pairedItem: {
@@ -155,8 +154,8 @@ export async function executeCreateWorkflowExecution(
 				},
 			};
 		} catch (apiError) {
-			console.error('API request failed:', apiError);
-			console.error('Request details:', {
+			Logger.error('API request failed:', apiError);
+			Logger.error('Request details:', {
 				url: `${baseURL}/api/v1/workflow/${workflowId}/execution`,
 				workflowId,
 				body,
@@ -164,7 +163,7 @@ export async function executeCreateWorkflowExecution(
 			throw apiError;
 		}
 	} catch (error) {
-		console.error('Error in workflow execution creation:', error);
+		Logger.error('Error in workflow execution creation:', error);
 		throw error;
 	}
 }

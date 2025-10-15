@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, LoggerProxy as Logger } from 'n8n-workflow';
 
 type WorkflowStep = {
 	id: string;
@@ -72,7 +72,7 @@ export async function executeCreateAgentWorkflow(
 	baseURL: string,
 ): Promise<INodeExecutionData> {
 	try {
-		console.log('Starting workflow creation...');
+		Logger.info('Starting workflow creation...');
 
 		// Get basic workflow information
 		const name = this.getNodeParameter('name', i) as string;
@@ -81,11 +81,11 @@ export async function executeCreateAgentWorkflow(
 		const timezone = this.getNodeParameter('timezone', i) as string;
 		const agentId = this.getNodeParameter('agentId', i) as string;
 
-		console.log('Basic parameters:', { name, description, active, timezone, agentId });
+		Logger.info('Basic parameters:', { name, description, active, timezone, agentId });
 
 		// Get step configuration
 		const stepConfig = this.getNodeParameter('stepConfiguration', i) as Record<string, unknown>;
-		console.log('Step configuration:', stepConfig);
+		Logger.info('Step configuration:', stepConfig);
 
 		// Get schedule configurations
 		const workflowScheduleUi = this.getNodeParameter('workflowScheduleUi', i) as Record<
@@ -97,7 +97,7 @@ export async function executeCreateAgentWorkflow(
 		const workflowScheduleData = workflowScheduleUi?.scheduleConfiguration || {};
 		const tcpaScheduleData = tcpaScheduleUi?.tcpaConfiguration || {};
 
-		console.log('Schedule configurations:', { workflowScheduleData, tcpaScheduleData });
+		Logger.info('Schedule configurations:', { workflowScheduleData, tcpaScheduleData });
 
 		// Build workflow schedule
 		const workflowSchedule: Schedule = {
@@ -123,7 +123,7 @@ export async function executeCreateAgentWorkflow(
 
 		// Configure workflow schedule
 		if (workflowScheduleData) {
-			console.log('Configuring workflow schedule...');
+			Logger.info('Configuring workflow schedule...');
 			const scheduleData = workflowScheduleData as Record<string, unknown>;
 			const {
 				workingDays = [],
@@ -133,7 +133,7 @@ export async function executeCreateAgentWorkflow(
 				workingMinutesEnd = 0,
 			} = scheduleData;
 
-			console.log('Working days configuration:', { workingDays });
+			Logger.info('Working days configuration:', { workingDays });
 
 			if (Array.isArray(workingDays) && workingDays.length > 0) {
 				for (const day of workingDays) {
@@ -149,15 +149,15 @@ export async function executeCreateAgentWorkflow(
 						],
 					};
 				}
-				console.log('Workflow schedule configured:', workflowSchedule);
+				Logger.info('Workflow schedule configured:', workflowSchedule);
 			} else {
-				console.log('No working days configured, using default empty schedule');
+				Logger.info('No working days configured, using default empty schedule');
 			}
 		}
 
 		// Configure TCPA schedule
 		if (tcpaScheduleData) {
-			console.log('Configuring TCPA schedule...');
+			Logger.info('Configuring TCPA schedule...');
 			const tcpaData = tcpaScheduleData as Record<string, unknown>;
 			const {
 				tcpaDays = [],
@@ -167,7 +167,7 @@ export async function executeCreateAgentWorkflow(
 				tcpaMinutesEnd = 0,
 			} = tcpaData;
 
-			console.log('TCPA days configuration:', { tcpaDays });
+			Logger.info('TCPA days configuration:', { tcpaDays });
 
 			if (Array.isArray(tcpaDays) && tcpaDays.length > 0) {
 				for (const day of tcpaDays) {
@@ -183,9 +183,9 @@ export async function executeCreateAgentWorkflow(
 						],
 					};
 				}
-				console.log('TCPA schedule configured:', tcpaSchedule);
+				Logger.info('TCPA schedule configured:', tcpaSchedule);
 			} else {
-				console.log('No TCPA days configured, using default empty schedule');
+				Logger.info('No TCPA days configured, using default empty schedule');
 			}
 		}
 
@@ -201,7 +201,7 @@ export async function executeCreateAgentWorkflow(
 			definition: stepDefinition,
 		};
 
-		console.log('Preparing API request with workflow:', JSON.stringify(workflow, null, 2));
+		Logger.info('Preparing API request with workflow:', { workflow });
 
 		try {
 			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
@@ -215,7 +215,7 @@ export async function executeCreateAgentWorkflow(
 				json: true,
 			});
 
-			console.log('Workflow created successfully:', JSON.stringify(response, null, 2));
+			Logger.info('Workflow created successfully:', { response });
 
 			return {
 				json: response,
@@ -224,15 +224,15 @@ export async function executeCreateAgentWorkflow(
 				},
 			};
 		} catch (apiError) {
-			console.error('API request failed:', apiError);
-			console.error('Request details:', {
+			Logger.error('API request failed:', apiError);
+			Logger.error('Request details:', {
 				url: `${baseURL}/api/v1/workflow`,
 				workflow,
 			});
 			throw apiError;
 		}
 	} catch (error) {
-		console.error('Error in workflow creation:', error);
+		Logger.error('Error in workflow creation:', error);
 		throw error;
 	}
 }
