@@ -1,12 +1,12 @@
 on:
-  push:
+  pull_request:
     branches: [main]
 
 name: Verify Build
 
 jobs:
   run-tests:
-    runs-on: linux-x64
+    runs-on: ubuntu-latest # Public runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
