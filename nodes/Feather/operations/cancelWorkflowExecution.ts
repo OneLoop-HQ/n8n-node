@@ -25,7 +25,7 @@ export async function executeCancelWorkflowExecution(
 				json: true,
 			});
 
-			Logger.info('Workflow execution cancelled successfully:', JSON.stringify(response, null, 2));
+			Logger.info('Workflow execution cancelled successfully:', { response });
 
 			return {
 				json: response,
@@ -34,8 +34,8 @@ export async function executeCancelWorkflowExecution(
 				},
 			};
 		} catch (apiError) {
-			console.error('API request failed:', apiError);
-			console.error('Request details:', {
+			Logger.error('API request failed:', { error: apiError });
+			Logger.error('Request details:', {
 				url: `${baseURL}/api/v1/workflow/${workflowId}/executions/${executionId}/cancel`,
 				workflowId,
 				executionId,
@@ -43,7 +43,7 @@ export async function executeCancelWorkflowExecution(
 			throw apiError;
 		}
 	} catch (error) {
-		console.error('Error in workflow execution cancellation:', error);
+		Logger.error('Error in workflow execution cancellation:', { error });
 		throw error;
 	}
 }

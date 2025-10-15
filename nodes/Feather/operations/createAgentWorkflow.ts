@@ -201,7 +201,7 @@ export async function executeCreateAgentWorkflow(
 			definition: stepDefinition,
 		};
 
-		Logger.info('Preparing API request with workflow:', JSON.stringify(workflow, null, 2));
+		Logger.info('Preparing API request with workflow:', { workflow });
 
 		try {
 			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
@@ -215,7 +215,7 @@ export async function executeCreateAgentWorkflow(
 				json: true,
 			});
 
-			Logger.info('Workflow created successfully:', JSON.stringify(response, null, 2));
+			Logger.info('Workflow created successfully:', { response });
 
 			return {
 				json: response,
@@ -224,15 +224,15 @@ export async function executeCreateAgentWorkflow(
 				},
 			};
 		} catch (apiError) {
-			console.error('API request failed:', apiError);
-			console.error('Request details:', {
+			Logger.error('API request failed:', apiError);
+			Logger.error('Request details:', {
 				url: `${baseURL}/api/v1/workflow`,
 				workflow,
 			});
 			throw apiError;
 		}
 	} catch (error) {
-		console.error('Error in workflow creation:', error);
+		Logger.error('Error in workflow creation:', error);
 		throw error;
 	}
 }
