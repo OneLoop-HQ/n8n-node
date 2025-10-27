@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData, LoggerProxy as Logger, NodeOperationError } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from 'n8n-workflow';
 
 export async function executeCreateWorkflowExecution(
 	this: IExecuteFunctions,
@@ -6,8 +6,6 @@ export async function executeCreateWorkflowExecution(
 	baseURL: string,
 ): Promise<INodeExecutionData> {
 	try {
-		Logger.info('Starting workflow execution creation...');
-
 		// Get required parameters
 		const workflowId = this.getNodeParameter('workflowId', i) as string;
 		const customerLeadId = this.getNodeParameter('customerLeadId', i) as string;
@@ -75,8 +73,6 @@ export async function executeCreateWorkflowExecution(
 			}
 		}
 
-		Logger.info('Basic parameters:', { workflowId, customerLeadId, primaryPhone, zipcode, state });
-
 		// Build request body
 		const body: Record<string, unknown> = {
 			customerLeadId,
@@ -132,8 +128,6 @@ export async function executeCreateWorkflowExecution(
 
 		body.metadata = metadata;
 
-		Logger.info('Preparing API request with execution data:', { body});
-
 		try {
 			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
 				method: 'POST',
@@ -146,7 +140,6 @@ export async function executeCreateWorkflowExecution(
 				json: true,
 			});
 
-			Logger.info('Workflow execution created successfully:', { response });
 			return {
 				json: response,
 				pairedItem: {
@@ -154,16 +147,9 @@ export async function executeCreateWorkflowExecution(
 				},
 			};
 		} catch (apiError) {
-			Logger.error('API request failed:', apiError);
-			Logger.error('Request details:', {
-				url: `${baseURL}/api/v1/workflow/${workflowId}/execution`,
-				workflowId,
-				body,
-			});
 			throw apiError;
 		}
 	} catch (error) {
-		Logger.error('Error in workflow execution creation:', error);
 		throw error;
 	}
 }

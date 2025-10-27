@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData, LoggerProxy as Logger } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
 
 type WorkflowStep = {
 	id: string;
@@ -72,8 +72,6 @@ export async function executeCreateAgentWorkflow(
 	baseURL: string,
 ): Promise<INodeExecutionData> {
 	try {
-		Logger.info('Starting workflow creation...');
-
 		// Get basic workflow information
 		const name = this.getNodeParameter('name', i) as string;
 		const description = this.getNodeParameter('description', i) as string;
@@ -81,11 +79,8 @@ export async function executeCreateAgentWorkflow(
 		const timezone = this.getNodeParameter('timezone', i) as string;
 		const agentId = this.getNodeParameter('agentId', i) as string;
 
-		Logger.info('Basic parameters:', { name, description, active, timezone, agentId });
-
 		// Get step configuration
 		const stepConfig = this.getNodeParameter('stepConfiguration', i) as Record<string, unknown>;
-		Logger.info('Step configuration:', stepConfig);
 
 		// Get schedule configurations
 		const workflowScheduleUi = this.getNodeParameter('workflowScheduleUi', i) as Record<
@@ -96,8 +91,6 @@ export async function executeCreateAgentWorkflow(
 
 		const workflowScheduleData = workflowScheduleUi?.scheduleConfiguration || {};
 		const tcpaScheduleData = tcpaScheduleUi?.tcpaConfiguration || {};
-
-		Logger.info('Schedule configurations:', { workflowScheduleData, tcpaScheduleData });
 
 		// Build workflow schedule
 		const workflowSchedule: Schedule = {
@@ -123,7 +116,6 @@ export async function executeCreateAgentWorkflow(
 
 		// Configure workflow schedule
 		if (workflowScheduleData) {
-			Logger.info('Configuring workflow schedule...');
 			const scheduleData = workflowScheduleData as Record<string, unknown>;
 			const {
 				workingDays = [],
@@ -132,8 +124,6 @@ export async function executeCreateAgentWorkflow(
 				workingMinutesStart = 0,
 				workingMinutesEnd = 0,
 			} = scheduleData;
-
-			Logger.info('Working days configuration:', { workingDays });
 
 			if (Array.isArray(workingDays) && workingDays.length > 0) {
 				for (const day of workingDays) {
@@ -149,15 +139,11 @@ export async function executeCreateAgentWorkflow(
 						],
 					};
 				}
-				Logger.info('Workflow schedule configured:', workflowSchedule);
-			} else {
-				Logger.info('No working days configured, using default empty schedule');
 			}
 		}
 
 		// Configure TCPA schedule
 		if (tcpaScheduleData) {
-			Logger.info('Configuring TCPA schedule...');
 			const tcpaData = tcpaScheduleData as Record<string, unknown>;
 			const {
 				tcpaDays = [],
@@ -166,8 +152,6 @@ export async function executeCreateAgentWorkflow(
 				tcpaMinutesStart = 0,
 				tcpaMinutesEnd = 0,
 			} = tcpaData;
-
-			Logger.info('TCPA days configuration:', { tcpaDays });
 
 			if (Array.isArray(tcpaDays) && tcpaDays.length > 0) {
 				for (const day of tcpaDays) {
@@ -183,9 +167,6 @@ export async function executeCreateAgentWorkflow(
 						],
 					};
 				}
-				Logger.info('TCPA schedule configured:', tcpaSchedule);
-			} else {
-				Logger.info('No TCPA days configured, using default empty schedule');
 			}
 		}
 
@@ -201,8 +182,6 @@ export async function executeCreateAgentWorkflow(
 			definition: stepDefinition,
 		};
 
-		Logger.info('Preparing API request with workflow:', { workflow });
-
 		try {
 			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
 				method: 'POST',
@@ -215,8 +194,6 @@ export async function executeCreateAgentWorkflow(
 				json: true,
 			});
 
-			Logger.info('Workflow created successfully:', { response });
-
 			return {
 				json: response,
 				pairedItem: {
@@ -224,15 +201,9 @@ export async function executeCreateAgentWorkflow(
 				},
 			};
 		} catch (apiError) {
-			Logger.error('API request failed:', apiError);
-			Logger.error('Request details:', {
-				url: `${baseURL}/api/v1/workflow`,
-				workflow,
-			});
 			throw apiError;
 		}
 	} catch (error) {
-		Logger.error('Error in workflow creation:', error);
 		throw error;
 	}
 }
