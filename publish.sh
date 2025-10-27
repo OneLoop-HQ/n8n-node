@@ -147,10 +147,6 @@ else
     git add package.json package-lock.json
     git commit -m "chore: bump version to $NEW_VERSION"
 
-    # Create git tag
-    git tag -a "v$NEW_VERSION" -m "Release v$NEW_VERSION"
-    print_info "Created git tag v$NEW_VERSION"
-
     # Publish to npm
     print_info "Publishing to npm..."
     npm publish --access public
@@ -160,7 +156,6 @@ else
     # Push branch and tags to git
     print_info "Pushing branch and tags to origin..."
     git push -u origin "$RELEASE_BRANCH"
-    git push --tags
     print_info "Pushed $RELEASE_BRANCH with tags"
 
     # Ask if user wants to create a PR
