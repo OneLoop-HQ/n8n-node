@@ -5,32 +5,24 @@ export async function executeCancelWorkflowExecution(
 	i: number,
 	baseURL: string,
 ): Promise<INodeExecutionData> {
-	try {
-		// Get the workflow and execution IDs
-		const workflowId = this.getNodeParameter('workflowId', i) as string;
-		const executionId = this.getNodeParameter('executionId', i) as string;
+	// Get the workflow and execution IDs
+	const workflowId = this.getNodeParameter('workflowId', i) as string;
+	const executionId = this.getNodeParameter('executionId', i) as string;
 
-		try {
-			const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
-				method: 'POST',
-				url: `${baseURL}/api/v1/workflow/${workflowId}/executions/${executionId}/cancel`,
-				headers: {
-					'Content-Type': 'application/json',
-					accept: 'application/json, text/plain, */*',
-				},
-				json: true,
-			});
+	const response = await this.helpers.httpRequestWithAuthentication.call(this, 'featherApi', {
+		method: 'POST',
+		url: `${baseURL}/api/v1/workflow/${workflowId}/executions/${executionId}/cancel`,
+		headers: {
+			'Content-Type': 'application/json',
+			accept: 'application/json, text/plain, */*',
+		},
+		json: true,
+	});
 
-			return {
-				json: response,
-				pairedItem: {
-					item: i,
-				},
-			};
-		} catch (apiError) {
-			throw apiError;
-		}
-	} catch (error) {
-		throw error;
-	}
+	return {
+		json: response,
+		pairedItem: {
+			item: i,
+		},
+	};
 }
